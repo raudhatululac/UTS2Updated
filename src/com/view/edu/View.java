@@ -5,6 +5,9 @@
  */
 package com.view.edu;
 
+import java.text.DecimalFormat;
+import model.model;
+
 /**
  *
  * @author ASUS X
@@ -257,6 +260,50 @@ public class View extends javax.swing.JFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
+        String gender = null;
+        if (Male.isSelected()) {
+            gender = "Male";
+        } else if (Female.isSelected()) {
+            gender = "Female";
+        }
+        Object combo = ComboCabang.getSelectedItem();
+        Object list = listPaket.getSelectedValue();
+        String kombo = String.valueOf(combo);
+        String listPaket = String.valueOf(list);
+
+        model m = new model();
+        if (listPaket == "Reguler") {
+            m.setReguler(450000);
+            m.setOut(m.getReguler());
+        } else if ((listPaket == "Private")) {
+            m.setPrivat(750000);
+            m.setOut(m.getPrivat());
+        } else if ((listPaket == "Mahasiswa")) {
+            m.setMahasiswa(300000);
+            m.setOut(m.getMahasiswa());
+        } else if (listPaket == "Premium") {
+            m.setPremium(1000000);
+            m.setOut(m.getPremium());
+        }
+        DecimalFormat df = new DecimalFormat("#.##");
+        m.akhir = df.format(m.getOut());
+        
+        String handukKecil = chkKecil.getText();
+        String handukBesar = chkBesar.getText();
+        
+        if (chkKecil.isSelected() == false) {
+            handukKecil="";
+        }
+        if (chkBesar.isSelected() == false) {
+            handukBesar="";
+        }
+        
+        txtOutput.setText("PENDAFTARAM ANGGOTA GYM \n"
+                + "Nama: " + txtnama.getText() + "\nNo KTP: "
+                + txtktp.getText() + "\nJenis Kelamin: " + gender + "\n"
+                + "Cabang: " + kombo + "\nJenis Handuk: " + handukKecil
+                + " "+handukBesar + "\nPaket Fitness: "
+                + listPaket + "\nBIAYA PENDAFTARAN: Rp " + m.akhir + "/bln");
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     /**
